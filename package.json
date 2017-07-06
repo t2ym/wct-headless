@@ -48,7 +48,7 @@
     "gulp": "^3.8.10",
     "tools-common": "github:Polymer/tools-common#aa1c22d",
     "tslint": "^3.14.0",
-    "typescript": "^2.0.0"
+    "typescript": "2.3.2"
   },
   "dependencies": {
     "@types/chalk": "^0.4.28",
