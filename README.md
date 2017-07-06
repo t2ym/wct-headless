@@ -4,7 +4,7 @@ Headless Chrome browser support for [web-component-tester](https://github.com/Po
 
 wct-headless plugin is the same as [wct-local](https://github.com/Polymer/wct-local) except for headless Chrome support.
 
-Notes:
+### Notes:
 - The "local" plugin has to be explicitly disabled as it is automatically enabled by default.
 - Option #1: Disable the "local" plugin with `--skip-plugin=local` option
 ```sh
