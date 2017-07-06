@@ -6,11 +6,11 @@ wct-headless plugin is the same as [wct-local](https://github.com/Polymer/wct-lo
 
 Notes:
 - The "local" plugin has to be explicitly disabled as it is automatically enabled by default.
-  - Option #1: Disable the "local" plugin with `--skip-plugin=local` option
+- Option #1: Disable the "local" plugin with `--skip-plugin=local` option
 ```sh
     wct --skip-plugin=local
 ```
-  - Option #2: Disable the "local" plugin in wct.conf.json
+- Option #2: Disable the "local" plugin in wct.conf.json
 ```javascript
     {
       "plugins": {
