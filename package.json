@@ -1,6 +1,6 @@
 {
   "name": "wct-headless",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "description": "WCT plugin that enables support for headless local browsers via Selenium",
   "keywords": [
     "wct",
@@ -25,10 +25,10 @@
   "wct-plugin": {
     "cli-options": {
       "browsers": {
-        "help": "Local browsers to run tests on, or 'all'.",
-        "full": "local",
+        "help": "Headless browsers to run tests on, or 'all'.",
+        "full": "headless",
         "metavar": "NAME",
-        "abbr": "l",
+        "abbr": "h",
         "list": true
       },
       "seleniumArgs": {
