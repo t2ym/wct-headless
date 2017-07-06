@@ -1,6 +1,6 @@
 {
   "name": "wct-headless",
-  "version": "2.0.17",
+  "version": "2.0.18",
   "description": "WCT plugin that enables support for headless local browsers via Selenium",
   "keywords": [
     "wct",
