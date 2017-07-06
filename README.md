@@ -1,5 +1,5 @@
-[![NPM version](http://img.shields.io/npm/v/wct-local.svg?style=flat-square)](https://npmjs.org/package/wct-local)
+[![NPM version](http://img.shields.io/npm/v/wct-headless.svg?style=flat-square)](https://npmjs.org/package/wct-headless)
 
-Local browser support for [web-component-tester](https://github.com/Polymer/web-component-tester).
+Headless Chrome browser support for [web-component-tester](https://github.com/Polymer/web-component-tester).
 
-This is currently a dependency of WCT, and tested via it.
+wct-headless plugin is the same as [wct-local](https://github.com/Polymer/wct-local) except for headless Chrome support.

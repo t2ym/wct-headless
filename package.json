@@ -1,18 +1,18 @@
 {
-  "name": "wct-local",
+  "name": "wct-headless",
   "version": "2.0.15",
-  "description": "WCT plugin that enables support for local browsers via Selenium",
+  "description": "WCT plugin that enables support for headless local browsers via Selenium",
   "keywords": [
     "wct",
     "web-component-tester",
     "plugin"
   ],
-  "homepage": "https://github.com/Polymer/wct-local",
-  "bugs": "https://github.com/Polymer/wct-local/issues",
+  "homepage": "https://github.com/t2ym/wct-headless",
+  "bugs": "https://github.com/t2ym/wct-headless/issues",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Polymer/wct-local.git"
+    "url": "https://github.com/t2ym/wct-headless.git"
   },
   "main": "lib/plugin.js",
   "typings": "lib/plugin.d.ts",
@@ -62,7 +62,7 @@
     "freeport": "^1.0.4",
     "launchpad": "^0.6.0",
     "promisify-node": "^0.4.0",
-    "selenium-standalone": "^5.8.0",
+    "selenium-standalone": "^6.5.0",
     "which": "^1.0.8"
   },
   "engines": {

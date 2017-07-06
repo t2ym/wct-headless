@@ -116,7 +116,7 @@ function chrome(browser: launchpad.Browser): wd.Capabilities {
     'version':     browser.version.match(/\d+/)[0],
     'chromeOptions': {
       'binary': browser.binPath,
-      'args': ['start-maximized']
+      'args': ['start-maximized','headless','disable-gpu']
     },
   };
 }
