@@ -26,3 +26,14 @@ wct-headless plugin is the same as [wct-local](https://github.com/Polymer/wct-lo
     }
 ```
 - Firefox is NOT headless even in the "headless" plugin.
+- Global wct needs global wct-headless installation.
+```sh
+    npm install -g web-component-tester
+    npm install -g wct-headless
+```
+- Local wct (./node_modules/.bin/wct) needs local wct-headless installation.
+```sh
+    npm install --save-dev web-component-tester
+    npm install --save-dev wct-headless
+```
+- `wct-headless` is compatible with my fork [@t2ym/web-component-tester](https://www.npmjs.com/package/@t2ym/web-component-tester) for [wct-istanbul](https://www.npmjs.com/package/wct-istanbul) as well.
