@@ -17,6 +17,7 @@ interface PluginOptions {
   seleniumArgs?: string[];
   skipSeleniumInstall?: boolean;
   browsers: string[];
+  chromeOptions?: string[];
 }
 
 /** WCT plugin that enables support for local browsers via Selenium. */
@@ -54,11 +55,11 @@ const plugin: wct.PluginInterface = (
 
     // Note that we **do not** append the browsers to `activeBrowsers`
     // until we've got a port chosen for the Selenium server.
-    const expanded = await browsers.expand(names);
+    const expanded = await browsers.expand(names, pluginOptions.chromeOptions);
 
     wct.emit(
         'log:debug',
-        'Expanded local browsers:', names, 'into capabilities:', expanded);
+        'Expanded local browsers:', names, 'into capabilities:', expanded, 'with chromeOptions:', pluginOptions.chromeOptions);
     eachCapabilities = <wct.BrowserDef[]>expanded;
     // We are careful to append these to the configuration object, even though
     // we don't know the selenium port yet. This allows WCT to give a useful
