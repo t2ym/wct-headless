@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- Add unreleased changes here. -->
 
+## [v2.1.0] - 2017-08-24
+
+- Add `chromeOptions` plug-in option
+
+## [v2.0.19] - 2017-07-29
+
+- Headless Chrome support
+
 ## [v2.0.15] - 2017-05-09
 
 - Update launchpad@v0.6.0
