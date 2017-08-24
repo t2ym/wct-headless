@@ -47,11 +47,13 @@ wct-headless plugin is derived from [wct-local](https://github.com/Polymer/wct-l
       "browsers": [
         "chrome"
       ],
-      "chromeOptions": [
-        "window-size=1920,1080",
-        "headless",
-        "disable-gpu"
-      ]
+      "browsersOptions": {
+        "chrome": [
+          "window-size=1920,1080",
+          "headless",
+          "disable-gpu"
+        ]
+      }
     }
   }
 }

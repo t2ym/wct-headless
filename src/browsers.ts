@@ -11,7 +11,7 @@ import * as launchpad from 'launchpad';
 import * as wd from 'wd';
 import * as promisify from 'promisify-node';
 
-type LaunchpadToWebdriver = (browser: launchpad.Browser, chromeOptions: string[]) => wd.Capabilities;
+type LaunchpadToWebdriver = (browser: launchpad.Browser, browsersOptions: {}) => wd.Capabilities;
 const LAUNCHPAD_TO_SELENIUM: {[browser: string]: LaunchpadToWebdriver} = {
   chrome:  chrome,
   canary:  chrome,
@@ -40,7 +40,7 @@ export function normalize(
  *
  * If `names` is empty, or contains `all`, all installed browsers will be used.
  */
-export async function expand(names: string[], chromeOptions: string[]): Promise<wd.Capabilities[]> {
+export async function expand(names: string[], browsersOptions: {}): Promise<wd.Capabilities[]> {
   if (names.indexOf('all') !== -1) {
     names = [];
   }
@@ -53,7 +53,7 @@ export async function expand(names: string[], chromeOptions: string[]): Promise<
     );
   }
 
-  const installedByName = await detect(chromeOptions);
+  const installedByName = await detect(browsersOptions);
   const installed = Object.keys(installedByName);
   // Opting to use everything?
   if (names.length === 0) {
@@ -76,7 +76,7 @@ export async function expand(names: string[], chromeOptions: string[]): Promise<
  *
  * Exported and declared as `let` variables for testabilty in wct.
  */
-export let detect = async function detect(chromeOptions: string[]): Promise<{[browser: string]: wd.Capabilities}> {
+export let detect = async function detect(browsersOptions: {}): Promise<{[browser: string]: wd.Capabilities}> {
   const launcher = await promisify(launchpad.local)();
   const browsers = await promisify(launcher.browsers)();
 
@@ -84,7 +84,7 @@ export let detect = async function detect(chromeOptions: string[]): Promise<{[br
   for (const browser of browsers) {
     if (!LAUNCHPAD_TO_SELENIUM[browser.name]) continue;
     const converter = LAUNCHPAD_TO_SELENIUM[browser.name];
-    const convertedBrowser = converter(browser, chromeOptions);
+    const convertedBrowser = converter(browser, browsersOptions[browser.name]);
     if (convertedBrowser) {
       results[browser.name] = convertedBrowser;
     }
@@ -110,14 +110,14 @@ export let supported = function supported(): string[] {
  * @param browser A launchpad browser definition.
  * @return A selenium capabilities object.
  */
-function chrome(browser: launchpad.Browser, chromeOptions: string[]): wd.Capabilities {
+function chrome(browser: launchpad.Browser, browserOptions: string[]): wd.Capabilities {
   return {
     'browserName': 'chrome',
     'version':     browser.version.match(/\d+/)[0],
     'chromeOptions': {
       'binary': browser.binPath,
-      'args': chromeOptions || ['start-maximized','headless','disable-gpu']
-    },
+      'args': browserOptions || ['start-maximized', 'headless', 'disable-gpu']
+    }
   };
 }
 
@@ -125,8 +125,8 @@ function chrome(browser: launchpad.Browser, chromeOptions: string[]): wd.Capabil
  * @param browser A launchpad browser definition.
  * @return A selenium capabilities object.
  */
-function firefox(browser: launchpad.Browser, dummyOptions: string[]): wd.Capabilities {
-  dummyOptions;
+function firefox(browser: launchpad.Browser, browserOptions: string[]): wd.Capabilities {
+  browserOptions;
   const version = parseInt(browser.version.match(/\d+/)[0], 10);
   const marionette = version >= 47;
   return {
@@ -141,8 +141,8 @@ function firefox(browser: launchpad.Browser, dummyOptions: string[]): wd.Capabil
  * @param browser A launchpad browser definition.
  * @return A selenium capabilities object.
  */
-function safari(browser: launchpad.Browser, dummyOptions: string[]): wd.Capabilities {
-  dummyOptions;
+function safari(browser: launchpad.Browser, browserOptions: string[]): wd.Capabilities {
+  browserOptions;
   // SafariDriver doesn't appear to support custom binary paths. Does Safari?
   return {
     'browserName': 'safari',
@@ -158,8 +158,8 @@ function safari(browser: launchpad.Browser, dummyOptions: string[]): wd.Capabili
  * @param browser A launchpad browser definition.
  * @return A selenium capabilities object.
  */
-function phantom(browser: launchpad.Browser, dummyOptions: string[]): wd.Capabilities {
-  dummyOptions;
+function phantom(browser: launchpad.Browser, browserOptions: string[]): wd.Capabilities {
+  browserOptions;
   return {
     'browserName': 'phantomjs',
     'version':     browser.version,
@@ -171,8 +171,8 @@ function phantom(browser: launchpad.Browser, dummyOptions: string[]): wd.Capabil
  * @param browser A launchpad browser definition.
  * @return A selenium capabilities object.
  */
-function internetExplorer(browser: launchpad.Browser, dummyOptions: string[]): wd.Capabilities {
-  dummyOptions;
+function internetExplorer(browser: launchpad.Browser, browserOptions: string[]): wd.Capabilities {
+  browserOptions;
   return {
     'browserName': 'internet explorer',
     'version':     browser.version,
