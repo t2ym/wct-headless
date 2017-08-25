@@ -84,7 +84,7 @@ export let detect = async function detect(browsersOptions: {}): Promise<{[browse
   for (const browser of browsers) {
     if (!LAUNCHPAD_TO_SELENIUM[browser.name]) continue;
     const converter = LAUNCHPAD_TO_SELENIUM[browser.name];
-    const convertedBrowser = converter(browser, browsersOptions[browser.name]);
+    const convertedBrowser = converter(browser, browsersOptions && browsersOptions[browser.name]);
     if (convertedBrowser) {
       results[browser.name] = convertedBrowser;
     }
@@ -126,14 +126,16 @@ function chrome(browser: launchpad.Browser, browserOptions: string[]): wd.Capabi
  * @return A selenium capabilities object.
  */
 function firefox(browser: launchpad.Browser, browserOptions: string[]): wd.Capabilities {
-  browserOptions;
   const version = parseInt(browser.version.match(/\d+/)[0], 10);
   const marionette = version >= 47;
   return {
     'browserName': 'firefox',
     'version': `${version}`,
     'firefox_binary': browser.binPath,
-    marionette
+    'moz:firefoxOptions': {
+      args: browserOptions || ['--headless']
+    },
+    'marionette': marionette
   };
 }
 

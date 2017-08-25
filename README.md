@@ -1,8 +1,8 @@
 [![NPM version](http://img.shields.io/npm/v/wct-headless.svg?style=flat-square)](https://npmjs.org/package/wct-headless)
 
-Headless Chrome browser support for [web-component-tester](https://github.com/Polymer/web-component-tester).
+Headless Chrome and Firefox browser support for [web-component-tester](https://github.com/Polymer/web-component-tester).
 
-wct-headless plugin is derived from [wct-local](https://github.com/Polymer/wct-local) for headless Chrome support.
+wct-headless plugin is derived from [wct-local](https://github.com/Polymer/wct-local) for headless Chrome 59+ & Firefox 55+ support.
 
 ### Notes:
 - The "local" plugin has to be explicitly disabled as it is automatically enabled by default.
@@ -19,13 +19,13 @@ wct-headless plugin is derived from [wct-local](https://github.com/Polymer/wct-l
         },
         "headless": {
           "browsers": [
-            "chrome"
+            "chrome",
+            "firefox"
           ]
         }
       }
     }
 ```
-- Firefox is NOT headless even in the "headless" plugin.
 - Global wct needs global wct-headless installation.
 ```sh
     npm install -g web-component-tester
@@ -36,7 +36,34 @@ wct-headless plugin is derived from [wct-local](https://github.com/Polymer/wct-l
     npm install --save-dev web-component-tester
     npm install --save-dev wct-headless
 ```
-- `chromeOptions` to specify command line arguments (ChromeDriver's `chromeOptions.args`) to Chrome browser. Default is `[ "start-maximized", "headless", "disable-gpu" ]`
+- Firefox 55 only on Linux supports `--headless` option, while Firefox 56+ (released version) on Windows and macOS will do.
+- `browsersOptions` to specify command line arguments (ChromeDriver's `chromeOptions.args` and GeckoDriver's `moz:firefoxOptions.args`) to Chrome and Firefox browsers, respectively. Default is `{ "chrome": [ "start-maximized", "headless", "disable-gpu" ], "firefox": [ "--headless" ] }`
+```javascript
+{
+  "plugins": {
+    "local": {
+      "disabled": true
+    },
+    "headless": {
+      "browsers": [
+        "chrome",
+        "firefox"
+      ],
+      "browsersOptions": {
+        "chrome": [
+          "window-size=1920,1080",
+          "headless",
+          "disable-gpu"
+        ],
+        "firefox": [
+          "--headless"
+        ]
+      }
+    }
+  }
+}
+```
+- Chrome's `"no-sandbox"` option is required to let `wct-headless` run in a docker container without privilege
 ```javascript
 {
   "plugins": {
@@ -51,32 +78,10 @@ wct-headless plugin is derived from [wct-local](https://github.com/Polymer/wct-l
         "chrome": [
           "window-size=1920,1080",
           "headless",
-          "disable-gpu"
+          "disable-gpu",
+          "no-sandbox"
         ]
       }
-    }
-  }
-}
-```
-- "chrome failed to maximize" error is always shown whether or not `"start-maximized"` option is set
-- `"windows-size=width,height"` option is effective regardless of `"start-maximized"` option
-- `"no-sandbox"` option is required to let `wct-headless` run in a docker container without privilege
-```javascript
-{
-  "plugins": {
-    "local": {
-      "disabled": true
-    },
-    "headless": {
-      "browsers": [
-        "chrome"
-      ],
-      "chromeOptions": [
-        "window-size=1920,1080",
-        "headless",
-        "disable-gpu",
-        "no-sandbox"
-      ]
     }
   }
 }
